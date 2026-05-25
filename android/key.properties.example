@@ -1,0 +1,7 @@
+# Copy this file to android/key.properties and fill in your release signing values.
+# Keep android/key.properties and your keystore file out of version control.
+
+storePassword=your-store-password
+keyPassword=your-key-password
+keyAlias=your-key-alias
+storeFile=upload-keystore.jks
