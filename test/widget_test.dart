@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 import 'package:gymcalc/main.dart';
@@ -30,5 +31,6 @@ void main() {
     expect(find.text('Max weight (lb)'), findsOneWidget);
     expect(find.text('Bar weight (lb)'), findsOneWidget);
     expect(find.text('Rep 1'), findsOneWidget);
+    expect(find.byIcon(Icons.info_outline), findsOneWidget);
   });
 }

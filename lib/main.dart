@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 const List<double> availablePlates = <double>[45, 25, 10, 5, 2.5];
 const List<double> defaultPercentages = <double>[
@@ -29,6 +30,9 @@ const String barWeightKey = 'bar_weight';
 const String repCountKey = 'rep_count';
 const String percentagesKey = 'percentages';
 const String darkModeKey = 'dark_mode';
+const String projectUrl = 'https://github.com/etienneperron/gymcalc';
+const String licenseInfo = 'GNU General Public License v3.0 (GPLv3)';
+final Uri projectUri = Uri.parse(projectUrl);
 
 void main() {
   runApp(const MyApp());
@@ -199,7 +203,16 @@ class _PlateCalculatorPageState extends State<PlateCalculatorPage> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('GymCalc')),
+      appBar: AppBar(
+        title: const Text('GymCalc'),
+        actions: <Widget>[
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            tooltip: 'Information',
+            onPressed: _showInfoDialog,
+          ),
+        ],
+      ),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -308,6 +321,47 @@ class _PlateCalculatorPageState extends State<PlateCalculatorPage> {
           ),
         ),
       ),
+    );
+  }
+
+  void _showInfoDialog() {
+    showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('About'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const Text('Project URL:'),
+              const SizedBox(height: 4),
+              InkWell(
+                onTap: () async {
+                  await launchUrl(projectUri, mode: LaunchMode.externalApplication);
+                },
+                child: Text(
+                  projectUrl,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 12),
+              const Text('License:'),
+              const SizedBox(height: 4),
+              const Text(licenseInfo),
+            ],
+          ),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('Close'),
+            ),
+          ],
+        );
+      },
     );
   }
 }
