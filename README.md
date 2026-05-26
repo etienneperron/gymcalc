@@ -133,6 +133,8 @@ This project is licensed under the GNU General Public License v3.0. See [LICENSE
 
 ## Play Store Release Setup
 
+Privacy policy: see [PRIVACY_POLICY.md](PRIVACY_POLICY.md).
+
 To generate a signed Android App Bundle for Play Store upload:
 
 1. Create a release keystore with Android Studio or `keytool`.
